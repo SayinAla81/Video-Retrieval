@@ -1,0 +1,65 @@
+<!-- image_search_app/templates/image_search_app/results.html -->
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتایج جستجوی تصویر</title>
+    
+    <!-- لینک به CSS Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-card {
+            margin: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">نتایج جستجوی تصویر</h1>
+        <form method="get" action="{% url 'image_search' %}" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="جستجو..." required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">جستجو</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="image-container">
+            {% if images %}
+                {% for image in images %}
+                    <div class="card image-card">
+                        <img src="{{ image }}" alt="Image" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">تصویر {{ forloop.counter }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    هیچ تصویری یافت نشد.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- لینک به JS Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
